@@ -31,7 +31,7 @@ object Main extends App {
 
     println("Extraction completed")
 
-    /*val generateImage =
+    val generateImage =
       (year: Int, zoom: Int, x: Int, y: Int, data: Iterable[(Location, Double)]) => {
 
         println("before Visualize")
@@ -43,16 +43,16 @@ object Main extends App {
         }
 
         val image = Interaction.tile(data, scale, zoom, x, y)
-        image.output(new File(s"$directoryURL/$x-$y.jpeg"))(JpegWriter())
+        image.output(new File(s"$directoryURL/$x-$y.png"))
         println("Visualize completed")
 
       }: Unit
 
 
-    Interaction.generateTiles[Iterable[(Location, Double)]](yearlyData, generateImage)*/
+    Interaction.generateTiles[Iterable[(Location, Double)]](yearlyData, generateImage)
 
 
-     val zoom = 0
+    /* val zoom = 0
      val x = 0
      val y = 0
      val image = Interaction.tile(yearlyData.head._2, scale, zoom, x, y)
@@ -63,10 +63,10 @@ object Main extends App {
      if (!directory.exists()) {
        directory.mkdirs()
      }
-     image.resizeTo(256,256).output(new File(s"$directoryURL/$x-$y-2.png"))
+     image.output(new File(s"$directoryURL/$x-$y-2.png"))
 
      println("Interaction completed")
-
+*/
 
 
 

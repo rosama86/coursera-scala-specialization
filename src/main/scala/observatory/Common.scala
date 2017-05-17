@@ -22,7 +22,7 @@ object Common {
   val WIDTH = 360
   val HEIGHT = 180
 
-  val TILE_SIZE = 64
+  val TILE_SIZE = 256
 
   val ALPHA = 1
 
