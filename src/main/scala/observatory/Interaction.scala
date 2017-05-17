@@ -41,7 +41,7 @@ object Interaction {
       for {
         ix <- 0 until TILE_SIZE
         iy <- 0 until TILE_SIZE
-      } yield (ix, iy, tileLocation(zoom, ix + x, iy + y))
+      } yield (ix, iy, tileLocation(zoom + 8, ix + x, iy + y))
 
     val image = Image.apply(TILE_SIZE, TILE_SIZE)
 
