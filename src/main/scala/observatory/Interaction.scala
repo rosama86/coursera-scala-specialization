@@ -41,9 +41,7 @@ object Interaction {
       for {
         ix <- 0 until TILE_SIZE
         iy <- 0 until TILE_SIZE
-      } yield (ix, iy, tileLocation(zoom, x + ix, y + iy))
-
-    println("Tile locations calculated")
+      } yield (ix, iy, tileLocation(zoom, ix + x, iy + y))
 
     val image = Image.apply(TILE_SIZE, TILE_SIZE)
 
@@ -53,8 +51,6 @@ object Interaction {
       val pixel = Pixel.apply(color.red, color.green, color.blue, 127)
       image.setPixel(location._1, location._2, pixel)
     })
-
-    println("Visualization completed")
 
     image
   }

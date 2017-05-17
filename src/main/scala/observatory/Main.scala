@@ -2,7 +2,7 @@ package observatory
 
 import java.io.File
 
-import com.sksamuel.scrimage.nio.{JpegWriter, PngWriter}
+import com.sksamuel.scrimage.nio.JpegWriter
 
 object Main extends App {
 
@@ -30,33 +30,41 @@ object Main extends App {
               .map(extract => (extract._1, Extraction.locationYearlyAverageRecords(extract._2)))
 
     println("Extraction completed")
-    /* val generateImage =
-       (year: Int, zoom: Int, x: Int, y: Int, data: Iterable[(Location, Double)]) => {
 
-         println("before Visualize")
-         val image = Interaction.tile(data, scale, zoom, x, y)
-         image.output(new File(s"$year.jpeg"))(JpegWriter())
-         println("Visualize completed")
+    val generateImage =
+      (year: Int, zoom: Int, x: Int, y: Int, data: Iterable[(Location, Double)]) => {
 
-       }: Unit
+        println("before Visualize")
+        val directoryURL = s"target/temperatures/$year/$zoom/"
+
+        val directory = new File(directoryURL)
+        if (!directory.exists()) {
+          directory.mkdirs()
+        }
+
+        val image = Interaction.tile(data, scale, zoom, x, y)
+        image.output(new File(s"$directoryURL/$x-$y.jpeg"))(JpegWriter())
+        println("Visualize completed")
+
+      }: Unit
 
 
-     Interaction.generateTiles[Iterable[(Location, Double)]](yearlyData, generateImage)*/
+    Interaction.generateTiles[Iterable[(Location, Double)]](yearlyData, generateImage)
 
-    val zoom = 0
-    val x = 0
-    val y = 0
-    val image = Interaction.tile(yearlyData.head._2, scale, zoom, x, y)
+    /* val zoom = 0
+     val x = 0
+     val y = 0
+     val image = Interaction.tile(yearlyData.head._2, scale, zoom, x, y)
 
-    val directoryURL = s"target/temperatures/$year/$zoom/"
+     val directoryURL = s"target/temperatures/$year/$zoom/"
 
-    val directory = new File(directoryURL)
-    if (!directory.exists()) {
-      directory.mkdirs()
-    }
-    image.output(new File(s"$directoryURL/$x-$y.jpeg"))(JpegWriter())
+     val directory = new File(directoryURL)
+     if (!directory.exists()) {
+       directory.mkdirs()
+     }
+     image.output(new File(s"$directoryURL/$x-$y.jpeg"))(JpegWriter())
 
-    println("Interaction completed")
+     println("Interaction completed")*/
 
     /*
 
