@@ -120,6 +120,7 @@ object Visualization {
   def visualize(temperatures: Iterable[(Location, Double)], colors: Iterable[(Double, Color)]): Image = {
     import Common.WIDTH
     import Common.HEIGHT
+    import Common.ALPHA
 
     val image = Image.apply(WIDTH, HEIGHT)
 
@@ -138,7 +139,7 @@ object Visualization {
     coordinates.par.foreach(coordinate => {
       val temperature = predictTemperature(temperatures, Location(coordinate._4, coordinate._3))
       val color = interpolateColor(colors, temperature)
-      val pixel = Pixel.apply(color.red, color.green, color.blue, 127)
+      val pixel = Pixel.apply(color.red, color.green, color.blue, ALPHA)
       image.setPixel(coordinate._1, coordinate._2, pixel)
     })
 

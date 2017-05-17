@@ -22,7 +22,9 @@ object Common {
   val WIDTH = 360
   val HEIGHT = 180
 
-  val TILE_SIZE = 256
+  val TILE_SIZE = 64
+
+  val ALPHA = 1
 
   // For implicit conversions like converting RDDs to DataFrames
   import org.apache.spark.sql.{Encoder, Encoders}
