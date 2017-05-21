@@ -25,7 +25,10 @@ object Visualization2 {
     d10: Double,
     d11: Double
   ): Double = {
-    ???
+    d00 * (1-x) * (1-y) +
+    d10 * x * (1-y) +
+    d01 * (1-x) * y +
+    d11 * x * y
   }
 
   /**
@@ -43,7 +46,41 @@ object Visualization2 {
     x: Int,
     y: Int
   ): Image = {
-    ???
+
+    def predictTemperature(location: Location): Double = {
+
+      val x00 = location.lat.floor.toInt
+      val y00 = location.lon.floor.toInt
+
+      val x01 = location.lat.floor.toInt
+      val y01 = location.lon.ceil.toInt
+
+      val x10 = location.lat.ceil.toInt
+      val y10 = location.lon.floor.toInt
+
+      val x11 = location.lat.ceil.toInt
+      val y11 = location.lon.ceil.toInt
+
+      bilinearInterpolation(location.lat - x00, location.lon - y00,
+        grid(x00, y00), grid(x01, y01), grid(x10, y10), grid(x11, y11))
+    }
+
+    import Common._
+    import Interaction._
+    import Visualization._
+
+    val locations = tileLocations(zoom, x, y)
+
+    val image = Image.apply(TILE_SIZE, TILE_SIZE)
+
+    locations.par.foreach(location => {
+      val prediction = predictTemperature(location._3)
+      val color = interpolateColor(colors, prediction)
+      val pixel = Pixel.apply(color.red, color.green, color.blue, 127)
+      image.setPixel(location._1, location._2, pixel)
+    })
+
+    image
   }
 
 }

@@ -37,11 +37,7 @@ object Interaction {
     import Common._
     import Visualization._
 
-    val locations =
-      for {
-        ix <- 0 until TILE_SIZE
-        iy <- 0 until TILE_SIZE
-      } yield (ix, iy, tileLocation(zoom + 8, ix + x * TILE_SIZE, iy + y * TILE_SIZE))
+    val locations = tileLocations(zoom, x, y)
 
     val image = Image.apply(TILE_SIZE, TILE_SIZE)
 
@@ -54,6 +50,26 @@ object Interaction {
 
     image
   }
+
+  /**
+    *
+    * @param zoom Zoom level
+    * @param x    X coordinate
+    * @param y    Y coordinate
+    * @return Latitude and Longitude
+    */
+  def tileLocations(zoom: Int, x: Int, y: Int): Iterable[(Int, Int, Location)] = {
+    import Common._
+
+    val locations =
+      for {
+        ix <- 0 until TILE_SIZE
+        iy <- 0 until TILE_SIZE
+      } yield (ix, iy, tileLocation(zoom + 8, ix + x * TILE_SIZE, iy + y * TILE_SIZE))
+
+    locations
+  }
+
 
   /**
     * Generates all the tiles for zoom levels 0 to 3 (included), for all the given years.
