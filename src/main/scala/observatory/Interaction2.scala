@@ -61,7 +61,7 @@ object Interaction2 {
     val largest = range(range.size - 1)
 
     if (year > largest)
-      Signal(range.head)
+      Signal(largest)
     else if (year < smallest)
       Signal(smallest)
     else
