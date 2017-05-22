@@ -56,12 +56,14 @@ object Interaction2 {
     */
   def yearSelection(selectedLayer: Signal[Layer], sliderValue: Signal[Int]): Signal[Int] = {
     val year = sliderValue()
-    val range = selectedLayer().bounds
+    val range = selectedLayer().bounds.sorted
+    val smallest = range(0)
+    val largest = range(range.size - 1)
 
-    if (year > range.head)
+    if (year > largest)
       Signal(range.head)
-    else if (year < range.end)
-      Signal(range.end)
+    else if (year < smallest)
+      Signal(smallest)
     else
       Signal(year)
   }
@@ -81,7 +83,7 @@ object Interaction2 {
     * @return The caption to show
     */
   def caption(selectedLayer: Signal[Layer], selectedYear: Signal[Int]): Signal[String] = {
-    Signal(s"${selectedLayer().layerName.id.capitalize}(${selectedYear()})")
+    Signal(s"${selectedLayer().layerName.id.capitalize} (${selectedYear()})")
   }
 
 }
